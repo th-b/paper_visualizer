@@ -45,10 +45,12 @@ The above config file corresponds to the LaTeX code below.
 
 See the [example directory](example/).
 
+
+To visualize [example.pdf](example/example.pdf) we run
 ```
 visualizer.py -i example.tex -o example.gv -n -c example_config
 ```
-results in 
+which results in
 
 ![alt text](example/example.gv.png)
 
