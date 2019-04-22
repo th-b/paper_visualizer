@@ -1,27 +1,38 @@
-\section{First section}
+\documentclass[a4paper,11pt]{article}
 
-\begin{lem}
-	\label{x}
-	Lemma 1.
-\end{lem}
-\begin{proof}
-	Proof of Lemma 1.1.
-\end{proof}
+\usepackage{amsthm}
 
-\begin{lem}
-	\label{y}
-	Lemma 2.
-\end{lem}
-\begin{proof}
-	Proof of Lemma 1.2.
-\end{proof}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
 
-\section{Second section}
-
-\begin{thm}
-	Theorem 2.1.
-\end{thm}
-
-\begin{proof}
-	Proof by \ref{x} and \ref{y}.
-\end{proof}
+\begin{document}
+	
+	\section{First section}
+	
+	\begin{lem}
+		\label{x}
+		Lemma 1.
+	\end{lem}
+	\begin{proof}
+		Proof of Lemma 1.1.
+	\end{proof}
+	
+	\begin{lem}
+		\label{y}
+		Lemma 2.
+	\end{lem}
+	\begin{proof}
+		Proof of Lemma 1.2.
+	\end{proof}
+	
+	\section{Second section}
+	
+	\begin{thm}
+		Theorem 2.1.
+	\end{thm}
+	
+	\begin{proof}
+		Proof by \ref{x} and \ref{y}.
+	\end{proof}
+	
+\end{document}
