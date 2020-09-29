@@ -143,8 +143,11 @@ def build_graph(theorems, option_show_label, option_existing_theorems_only):
 
     for t in theorems:
         if t['used']:
-            label_text = ' = ' + t['latex_label'] if (t['show_label'] and option_show_label) else ''
-            G.node(t['latex_label'],t['number'] + label_text)
+            if t['show_label'] and option_show_label:
+                label_text = t['latex_label']
+            else:
+                label_text = t['number']
+            G.node(t['latex_label'], label_text)
 
     return G
 
