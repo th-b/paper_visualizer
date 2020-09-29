@@ -13,9 +13,34 @@
 # See the LICENSE file for more details.
 
 import re
+import os
 from graphviz import Digraph
 import random
 import argparse
+
+def collect_label_translation(aux_file):
+    label_trans = {}
+    with open(aux_file) as f: 
+        for line in f:
+            m = re.match('\\\\newlabel\{([a-zA-Z:0-9=]+)\}', line)
+            if m is None:
+                continue
+            label = m.group(1)
+            trans = line.split('}{')[-2]
+            label_trans[label] = trans
+    return label_trans
+
+def possible_translation(tex_file, theorem_list):
+    aux_file = tex_file.replace('tex', 'aux')
+    if not os.path.exists(aux_file):
+        return
+    label_trans = collect_label_translation(aux_file)
+    for item in theorem_list:
+        label = item['latex_label']
+        if label == '':
+            continue
+        item['latex_label'] = label_trans[label]
+        item['references'] = [label_trans[i] for i in item['references']]
 
 def collect_theorems(input_file, hierarchy, theorem_names, outmost_counter_init):
     hierarchy_counter = {}
@@ -164,7 +189,8 @@ def main():
     # build graph
 
     theorems = collect_theorems(input_file, hierarchy, theorem_names, outmost_counter_init)
-    G = build_graph(theorems,option_show_label, option_existing_theorems_only)
+    possible_translation(input_file, theorems)
+    G = build_graph(theorems, option_show_label, option_existing_theorems_only)
 
     # -----------------------------
     # output the graph as png and open with default application
